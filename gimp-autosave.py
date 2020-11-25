@@ -28,15 +28,15 @@ def autosave(image, layer):
             del(backupFiles[id])
             try:
                 os.remove(filename)
-            except:
-                print("ERROR: %s" % sys.exc_info()[0])
+            except Exception as e:
+                print("ERROR: %s" % e)
         for id, filename in backupFiles.items():
             img = curImages[id]
             try:
-                print("saving %s-%s to %s"  % img.name, str(id), filename)
-                pdb.gimp_xcf_save(1, img, img.active_drawable, filename, filename)
-            except:
-                print("ERROR: %s" % sys.exc_info()[0])
+                print("saving %s" % filename)
+                pdb.gimp_file_save(img, img.active_drawable, filename, filename)
+            except Exception as e:
+                print("ERROR: %s" % e)
 register(
     "autosave",
     "Autosave dirty hack",
